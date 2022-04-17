@@ -19,5 +19,5 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 Check out everything that isn't a documentation file:
 
 ```
-dotfiles checkout .*
+dotfiles checkout HEAD ".*"
 ```
