@@ -45,7 +45,7 @@ set si
 syntax enable
 
 try
-    colorscheme zellner
+    colorscheme vim-monokai-tasty
 catch
 endtry
 
