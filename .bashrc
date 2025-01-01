@@ -81,5 +81,9 @@ WHITE=$(echo -en '\001\033[01;37m\002')
 PS1='\n${RED}\u${RESTORE}@${GREEN}\h${RESTORE}:${BLUE}\w${RESTORE} $(__git_ps1 "${PURPLE}[%s]${RESTORE}")\n\$ '
 
 
+# Don't show directories with green background, it's gross
+LS_COLORS+=':ow=01;34'
+
+
 # Dotfiles setup
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
