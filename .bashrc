@@ -26,7 +26,7 @@ fi
 
 
 # Bell
-set bell-style visible
+bind 'set bell-style visible'
 
 
 # History
