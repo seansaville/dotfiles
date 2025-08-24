@@ -1,0 +1,117 @@
+[
+    // Let the Vim extension handle Ctrl+B for "back a page"
+    {
+        "key": "ctrl+b",
+        "command": "-editor.action.goToDeclaration",
+        "when": "editorTextFocus"
+    },
+    // Let the Vim extension handle Ctrl-F for "forward a page"
+    {
+        "key": "ctrl+f",
+        "command": "-actions.find",
+        "when": "editorFocus || editorIsOpen"
+    },
+    // Let the IntelliJ keybindings handle Ctrl-Q for quick documentation view
+    {
+        "key": "ctrl+q",
+        "command": "-extension.vim_winCtrlQ",
+        "when": "editorTextFocus && vim.active && vim.use<C-q> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
+        "when": "inQuickOpen && inViewsPicker"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-workbench.action.quickOpenView"
+    },
+    // Ctrl-Enter should only run the current notebook cell; no other binding is desired
+    {
+        "key": "ctrl+enter",
+        "command": "-editor.action.goToDeclaration",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-editor.action.insertLineAfter",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-lineBreakInsert",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    // When using notebooks, use Q instead of Escape to move from cell edit to command mode (less confusion with Vim)
+    {
+        "key": "escape",
+        "command": "-notebook.cell.quitEdit"
+    },
+    {
+        "key": "q",
+        "command": "notebook.cell.quitEdit",
+        "when": "inputFocus && notebookCellFocused && !editorReadonly && !suggestWidgetVisible && vim.mode == 'Normal'"
+    },
+    // Move focus between left/right splits
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.focusLeftGroup",
+        "when": "editorTextFocus || terminalFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.focusRightGroup",
+        "when": "editorTextFocus || terminalFocus"
+    },
+    // Move editors between left/right splits
+    {
+        "key": "ctrl+alt+l",
+        "command": "workbench.action.moveEditorToRightGroup"
+    },
+    {
+        "key": "ctrl+alt+h",
+        "command": "workbench.action.moveEditorToLeftGroup"
+    },
+    // Cycle through tabs in current group (left/right order)
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    // Force Ctrl+W to close file, bypassing Vim entirely
+    {
+        "key": "ctrl+w",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "editorTextFocus"
+    },
+    // Cycle through terminal tabs when focus is in terminal
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
+    },
+    // Toggle terminal to full-height (maximize panel)
+    {
+        "key": "alt+shift+f12",
+        "command": "workbench.action.toggleMaximizedPanel"
+    },
+    // Toggle terminal open/close/focus (matches vim movement for panels)
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.terminal.toggleTerminal",
+    },
+    // Focus editor from terminal (vim-like "up" movement)
+    {
+        "key": "ctrl+u",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    }
+]
