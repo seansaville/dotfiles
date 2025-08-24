@@ -10,11 +10,6 @@ case $- in
 esac
 
 
-# Enable vi mode
-set -o vi
-bind 'set show-mode-in-prompt on'
-
-
 # Enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -30,10 +25,13 @@ set bell-style visible
 
 
 # History
-HISTCONTROL=ignoreboth
 shopt -s histappend
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTCONTROL=ignoreboth:erasedups
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+# Save history after each command
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 
 # Update window size after each command
@@ -57,28 +55,48 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 
+# Make less more friendly for non-text input files
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+
 # Convenient color codes
-RESTORE=$(echo -en '\001\033[0m\002')
-RED=$(echo -en '\001\033[00;31m\002')
-GREEN=$(echo -en '\001\033[00;32m\002')
-YELLOW=$(echo -en '\001\033[00;33m\002')
-BLUE=$(echo -en '\001\033[00;34m\002')
-MAGENTA=$(echo -en '\001\033[00;35m\002')
-PURPLE=$(echo -en '\001\033[00;35m\002')
-CYAN=$(echo -en '\001\033[00;36m\002')
-LIGHTGRAY=$(echo -en '\001\033[00;37m\002')
-LRED=$(echo -en '\001\033[01;31m\002')
-LGREEN=$(echo -en '\001\033[01;32m\002')
-LYELLOW=$(echo -en '\001\033[01;33m\002')
-LBLUE=$(echo -en '\001\033[01;34m\002')
-LMAGENTA=$(echo -en '\001\033[01;35m\002')
-LPURPLE=$(echo -en '\001\033[01;35m\002')
-LCYAN=$(echo -en '\001\033[01;36m\002')
-WHITE=$(echo -en '\001\033[01;37m\002')
+CLEAR=$(echo -en '\033[0m')
+RED=$(echo -en '\033[00;31m')
+GREEN=$(echo -en '\033[00;32m')
+YELLOW=$(echo -en '\033[00;33m')
+BLUE=$(echo -en '\033[00;34m')
+MAGENTA=$(echo -en '\033[00;35m')
+CYAN=$(echo -en '\033[00;36m')
+LIGHTGRAY=$(echo -en '\033[00;37m')
+BRED=$(echo -en '\033[01;31m')
+BGREEN=$(echo -en '\033[01;32m')
+BYELLOW=$(echo -en '\033[01;33m')
+BBLUE=$(echo -en '\033[01;34m')
+BMAGENTA=$(echo -en '\033[01;35m')
+BCYAN=$(echo -en '\033[01;36m')
+WHITE=$(echo -en '\033[01;37m')
+BGRED=$(echo -en '\033[01;41m')
 
 
 # Prompt
-PS1='\n${RED}\u${RESTORE}@${GREEN}\h${RESTORE}:${BLUE}\w${RESTORE} $(__git_ps1 "${PURPLE}[%s]${RESTORE}")\n\$ '
+function virtualenv_indicator() {
+    if [[ -n "$VIRTUAL_ENV"  ]] ; then
+        echo " 🐍"
+    else
+        echo ""
+    fi
+}
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+PS1='\n${CYAN}[\t]${CLEAR} ${GREEN}\u@${BGREEN}\h${CLEAR}:${BBLUE}\w${CLEAR}$(virtualenv_indicator) $(__git_ps1 "${MAGENTA}[%s]${CLEAR}")  \n\$ '
+
+
+# Enable vi mode
+set -o vi
+bind 'set show-mode-in-prompt on'
+bind "set vi-ins-mode-string \1${LIGHTGRAY}\2(ins)\1${CLEAR}\2 \1\e[1 q\2"
+bind "set vi-cmd-mode-string \1${BGRED}\2(cmd)\1${CLEAR}\2 \1\e[1 q\2"
 
 
 # Don't show directories with green background, it's gross
