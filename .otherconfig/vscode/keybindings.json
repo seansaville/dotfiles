@@ -56,12 +56,12 @@
     {
         "key": "ctrl+h",
         "command": "workbench.action.focusLeftGroup",
-        "when": "editorTextFocus || terminalFocus"
+        "when": "editorTextFocus || terminalFocus || notebookCellFocused"
     },
     {
         "key": "ctrl+l",
         "command": "workbench.action.focusRightGroup",
-        "when": "editorTextFocus || terminalFocus"
+        "when": "editorTextFocus || terminalFocus || notebookCellFocused"
     },
     // Move editors between left/right splits
     {
